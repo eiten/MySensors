@@ -33,6 +33,8 @@ typedef unsigned char byte;
 #include <pgmspace.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <pgmspace.h>
+#elif defined(ARDUINO_ARCH_CUBECELL)
+#include <pgmspace.h>
 #elif defined(ARDUINO_ARCH_SAMD)
 #define printf_P printf
 #else

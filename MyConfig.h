@@ -920,13 +920,13 @@
 #endif
 
 /**
- * @def MY_RFM95_TX_POWER_DBM
+ * @def MY_CUBECELL_TX_POWER_DBM
  * @brief Set TX power level, default 13dBm (overridden if ATC mode enabled)
  *
  * See here https://en.wikipedia.org/wiki/Short_Range_Devices
  */
-#ifndef MY_RFM95_TX_POWER_DBM
-#define MY_RFM95_TX_POWER_DBM (13u)	// 20mW
+#ifndef MY_CUBECELL_TX_POWER_DBM
+#define MY_CUBECELL_TX_POWER_DBM (13u)	// 20mW
 #endif
 
 /**
@@ -964,6 +964,72 @@
  */
 //#define MY_RFM95_TCXO
 /** @}*/ // End of RFM95SettingGrpPub group
+
+/**
+ * @defgroup CubeCellSettingGrpPub CubeCell
+ * @ingroup TransportSettingGrpPub
+ * @brief These options are specific to the %CubeCell family of wireless transport modules.
+ *
+ * The following Heltec modules are supported by this driver
+ * - CubeCell Module
+ * - CubeCell Module Plus
+ * - CubeCell Capsule
+ * - CubeCell Board
+ * - CubeCell BoardPlus
+ * - CubeCell GPS)
+ * - CubeCell_HalfAA
+ * @{
+ */
+
+/**
+ * @def MY_CUBECELL_FREQUENCY
+ * @brief The frequency to use.
+ *
+ * - CUBECELL_169MHZ
+ * - CUBECELL_315MHZ
+ * - CUBECELL_434MHZ
+ * - CUBECELL_868MHZ
+ * - CUBECELL_915MHZ
+ * - Custom frequency in Hz
+ *
+ * Defaults to 868MHz
+ * This must match the hardware version of the CubeCell device.
+ * Additional information: https://en.wikipedia.org/wiki/Short_Range_Devices
+ */
+#ifndef MY_CUBECELL_FREQUENCY
+#define MY_CUBECELL_FREQUENCY CUBECELL_868MHZ
+#endif
+/**
+ * @def MY_CUBECELL_MODEM_CONFIGRUATION
+ * @brief CubeCell modem configuration.
+ *
+ * BW = Bandwidth in kHz
+ * CR = Error correction code
+ * SF = Spreading factor, chips / symbol
+ *
+ * | CONFIG                    | BW    | CR  | SF   | Comment
+ * |---------------------------|-------|-----|------|-----------------------------
+ * | CUBECELL_BW125CR45SF128   | 125   | 4/5 | 128  | Default, medium range
+ * | CUBECELL_BW500CR45SF128   | 500   | 4/5 | 128  | Fast, short range
+ * | CUBECELL_BW125CR48SF4096  | 125   | 4/8 | 4096 | Slow, long range
+ *
+ */
+#ifndef MY_CUBECELL_MODEM_CONFIGRUATION
+#define MY_CUBECELL_MODEM_CONFIGRUATION CUBECELL_BW125CR45SF128
+#endif
+
+/**
+ * @def MY_CUBECELL_TX_POWER_DBM
+ * @brief Set TX power level, default 13dBm (overridden if ATC mode enabled)
+ *
+ * See here https://en.wikipedia.org/wiki/Short_Range_Devices
+ */
+#ifndef MY_CUBECELL_TX_POWER_DBM
+#define MY_CUBECELL_TX_POWER_DBM (13u)	// 20mW
+#endif
+
+/** @}*/ // End of CubeCellSettingGrpPub group
+
 
 /**
  * @defgroup SoftSpiSettingGrpPub Soft SPI
@@ -2164,7 +2230,7 @@
 #endif
 
 // Enable sensor network "feature" if one of the transport types was enabled
-#if defined(MY_RADIO_RF24) || defined(MY_RADIO_NRF5_ESB) || defined(MY_RADIO_RFM69) || defined(MY_RADIO_RFM95) || defined(MY_RS485)
+#if defined(MY_RADIO_RF24) || defined(MY_RADIO_NRF5_ESB) || defined(MY_RADIO_RFM69) || defined(MY_RADIO_RFM95) || defined(MY_RS485) || defined(MY_RADIO_CUBECELL)
 #define MY_SENSOR_NETWORK
 #endif
 
