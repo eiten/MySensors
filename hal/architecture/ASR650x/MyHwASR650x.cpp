@@ -27,7 +27,16 @@ static TimerEvent_t wakeUp;
 
 bool hwInit(void)
 {
-	boardInitMcu();
+    //SpiInit();
+    Asr_Timer_Init();
+    RtcInit();
+#if defined(CubeCell_Board)||defined(CubeCell_Capsule)||defined(CubeCell_BoardPlus)||defined(CubeCell_GPS)||defined(CubeCell_HalfAA)
+    pinMode(Vext,OUTPUT);
+    digitalWrite(Vext,HIGH);
+    pinMode(VBAT_ADC_CTL,OUTPUT);
+    digitalWrite(VBAT_ADC_CTL,HIGH);
+#endif
+
 #if !defined(MY_DISABLED_SERIAL)
 	MY_SERIALDEVICE.begin(MY_BAUD_RATE);
 #if defined(MY_GATEWAY_SERIAL)
