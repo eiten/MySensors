@@ -262,6 +262,7 @@ static void SX126x_wakeUp()
 }
 
 static void SX126x_standBy() {
+    SX126x_deviceReady();
     SX126x_sendCommand(SX126x_SET_STANDBY, SX126x_STDBY_RC);
     SX126x.radioMode = SX126x_MODE_STDBY_RC;
 }
@@ -278,6 +279,7 @@ static void SX126x_busy(void)
 
 static void SX126x_sleep(void)
 {
+    SX126x_deviceReady();
     sx126x_sleepParams_t sleepParams ={ 0 };
     sleepParams.fields.warmStart = true;
     SX126x_sendCommand(SX126x_SET_SLEEP, &sleepParams.value, sizeof(sleepParams.value));
@@ -589,6 +591,7 @@ static void SX126x_readBuffer(const uint8_t offset, uint8_t *buffer, const uint8
 
 static void SX126x_tx() {
     uint8_t timeout[3] ={ 0x00, 0x00, 0x00 }; //no timeout
+    SX126x_deviceReady();
     SX126x_setIrqMask(SX126x_IRQ_TX_DONE);
     SX126x_sendCommand(SX126x_SET_TX, timeout, 3);
 #ifdef MY_SX126x_ANT_SWITCH_PIN
@@ -599,6 +602,7 @@ static void SX126x_tx() {
 
 static void SX126x_rx() {
     uint8_t timeout[3] ={ 0x00, 0x00, 0x00 }; //no timeout, go into standby after reception
+    SX126x_deviceReady();
     SX126x_setIrqMask(SX126x_IRQ_RX_DONE | SX126x_IRQ_CRC_ERROR | SX126x_IRQ_RX_TX_TIMEOUT);
     SX126x_sendCommand(SX126x_SET_LORASYMBTIMEOUT, 0);
     SX126x_sendCommand(SX126x_SET_RX, timeout, 3);
@@ -607,6 +611,7 @@ static void SX126x_rx() {
 
 static bool SX126x_cad() {
     sx126x_cadParameters_t cadParameters;
+    SX126x_deviceReady();
     //this are recommandations extrapolated from AN1200.48
     if (MY_SX126x_LORA_BW < LORA_BW_250) {
         switch (MY_SX126x_LORA_SF) {
