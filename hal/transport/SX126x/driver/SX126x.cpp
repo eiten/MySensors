@@ -469,7 +469,7 @@ static void SX126x_setAddress(uint8_t address) {
     SX126x.address = address;
 }
 
-static uint8_t SX126x_setAddress(void) {
+static uint8_t SX126x_getAddress(void) {
     return SX126x.address;
 }
 
